@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateInstituicaoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateInstituicaoLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{instituicaoController.selected.id}" title="#{bundle.CreateInstituicaoTitle_id}" required="true" requiredMessage="#{bundle.CreateInstituicaoRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateInstituicaoLabel_nome}" for="nome" />
+                    <h:inputText id="nome" value="#{instituicaoController.selected.nome}" title="#{bundle.CreateInstituicaoTitle_nome}" required="true" requiredMessage="#{bundle.CreateInstituicaoRequiredMessage_nome}"/>
+                    <h:outputLabel value="#{bundle.CreateInstituicaoLabel_cidadeId}" for="cidadeId" />
+                    <h:selectOneMenu id="cidadeId" value="#{instituicaoController.selected.cidadeId}" title="#{bundle.CreateInstituicaoTitle_cidadeId}" required="true" requiredMessage="#{bundle.CreateInstituicaoRequiredMessage_cidadeId}">
+                        <f:selectItems value="#{cidadeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{instituicaoController.create}" value="#{bundle.CreateInstituicaoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{instituicaoController.prepareList}" value="#{bundle.CreateInstituicaoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateInstituicaoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

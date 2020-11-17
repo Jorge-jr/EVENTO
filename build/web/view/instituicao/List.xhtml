@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListInstituicaoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListInstituicaoEmpty}" rendered="#{instituicaoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{instituicaoController.items.rowCount > 0}">
+                    <h:outputText value="#{instituicaoController.pagination.pageFirstItem + 1}..#{instituicaoController.pagination.pageLastItem + 1}/#{instituicaoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{instituicaoController.previous}" value="#{bundle.Previous} #{instituicaoController.pagination.pageSize}" rendered="#{instituicaoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{instituicaoController.next}" value="#{bundle.Next} #{instituicaoController.pagination.pageSize}" rendered="#{instituicaoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{instituicaoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstituicaoTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstituicaoTitle_nome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListInstituicaoTitle_cidadeId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cidadeId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{instituicaoController.prepareView}" value="#{bundle.ListInstituicaoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{instituicaoController.prepareEdit}" value="#{bundle.ListInstituicaoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{instituicaoController.destroy}" value="#{bundle.ListInstituicaoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{instituicaoController.prepareCreate}" value="#{bundle.ListInstituicaoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListInstituicaoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

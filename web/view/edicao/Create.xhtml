@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEdicaoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEdicaoLabel_edicaoPK_numero}" for="edicaoPK_numero" />
+                    <h:inputText id="edicaoPK_numero" value="#{edicaoController.selected.edicaoPK.numero}" title="#{bundle.CreateEdicaoTitle_edicaoPK_numero}" required="true" requiredMessage="#{bundle.CreateEdicaoRequiredMessage_edicaoPK_numero}"/>
+                    <h:outputLabel value="#{bundle.CreateEdicaoLabel_ano}" for="ano" />
+                    <h:inputText id="ano" value="#{edicaoController.selected.ano}" title="#{bundle.CreateEdicaoTitle_ano}" required="true" requiredMessage="#{bundle.CreateEdicaoRequiredMessage_ano}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEdicaoLabel_dataInicio}" for="dataInicio" />
+                    <h:inputText id="dataInicio" value="#{edicaoController.selected.dataInicio}" title="#{bundle.CreateEdicaoTitle_dataInicio}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEdicaoLabel_dataFim}" for="dataFim" />
+                    <h:inputText id="dataFim" value="#{edicaoController.selected.dataFim}" title="#{bundle.CreateEdicaoTitle_dataFim}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEdicaoLabel_evento}" for="evento" />
+                    <h:selectOneMenu id="evento" value="#{edicaoController.selected.evento}" title="#{bundle.CreateEdicaoTitle_evento}" required="true" requiredMessage="#{bundle.CreateEdicaoRequiredMessage_evento}">
+                        <f:selectItems value="#{eventoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateEdicaoLabel_organizadoraId}" for="organizadoraId" />
+                    <h:selectOneMenu id="organizadoraId" value="#{edicaoController.selected.organizadoraId}" title="#{bundle.CreateEdicaoTitle_organizadoraId}" required="true" requiredMessage="#{bundle.CreateEdicaoRequiredMessage_organizadoraId}">
+                        <f:selectItems value="#{instituicaoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateEdicaoLabel_cidade}" for="cidade" />
+                    <h:selectOneMenu id="cidade" value="#{edicaoController.selected.cidade}" title="#{bundle.CreateEdicaoTitle_cidade}" required="true" requiredMessage="#{bundle.CreateEdicaoRequiredMessage_cidade}">
+                        <f:selectItems value="#{cidadeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{edicaoController.create}" value="#{bundle.CreateEdicaoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{edicaoController.prepareList}" value="#{bundle.CreateEdicaoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEdicaoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

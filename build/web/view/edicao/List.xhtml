@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEdicaoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListEdicaoEmpty}" rendered="#{edicaoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{edicaoController.items.rowCount > 0}">
+                    <h:outputText value="#{edicaoController.pagination.pageFirstItem + 1}..#{edicaoController.pagination.pageLastItem + 1}/#{edicaoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{edicaoController.previous}" value="#{bundle.Previous} #{edicaoController.pagination.pageSize}" rendered="#{edicaoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{edicaoController.next}" value="#{bundle.Next} #{edicaoController.pagination.pageSize}" rendered="#{edicaoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{edicaoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEdicaoTitle_edicaoPK_numero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.edicaoPK.numero}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEdicaoTitle_ano}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ano}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEdicaoTitle_dataInicio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataInicio}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEdicaoTitle_dataFim}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataFim}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEdicaoTitle_evento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.evento}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEdicaoTitle_organizadoraId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.organizadoraId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEdicaoTitle_cidade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cidade}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{edicaoController.prepareView}" value="#{bundle.ListEdicaoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{edicaoController.prepareEdit}" value="#{bundle.ListEdicaoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{edicaoController.destroy}" value="#{bundle.ListEdicaoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{edicaoController.prepareCreate}" value="#{bundle.ListEdicaoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListEdicaoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
